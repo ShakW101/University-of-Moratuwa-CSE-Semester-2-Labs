@@ -113,24 +113,28 @@ int main() {
     int listHigh = 500;
 
     vector<int> testList;
-
+//REMOVE THESE FUNCTIONS AND PUT YOUR OWN. YOUR FUNCTIONS MUST BE VOID. FOR RECURSIVE MERGE SORT, USE A DIFFERENT VOID FUNCTION TO CALL THE VECTOR INT FUNCTION
     void (*algorithms[])(vector<int>) = {bubbleSort, optimizedBubbleSort, insertionSort, selectionSort};
+//PUT THE NUMBER OF FUNCTIONS IN THE ABOVE ARRAY IN THIS VARIABLE
     int funcsLen = 4;
+//THIS IS OPTIONAL. PUT THE NAME OF YOUR ALGORITHM IN THE SAME ORDER AS IN THE FUNCTION ARRAY
     string names[] = {"Bubble Sort", "Optimized Bubble Sort", "Insertion Sort", "Selection Sort"};
 
     for(int length = lowerLimit; length <= upperLimit; length = length + skips){
-        testList = generateRandomVector(length, listLow, listHigh);
+        
         cout << "For a list of " << length << " elements, " <<endl;
         for(int i = 0; i < funcsLen; i++) {
             duration<double> duration[3];
             for (int x = 0; x < 3; x++) {
+                testList = generateRandomVector(length, listLow, listHigh);
                 auto start = high_resolution_clock::now();
                 algorithms[i](testList);
                 auto end = high_resolution_clock::now();
                 duration[x] = end - start;
             }
             ::duration<double> finalDur = (duration[0] + duration[1] + duration[2])/3;
-            cout  << finalDur.count()*1000   << endl;
+//THIS WILL OUTPUT THE TIME TAKEN IN MICROSECONDS FOR EACH ALGORITHM IN THE ORDER YOU SPECIFIED ABOVE
+            cout  << finalDur.count()*1000000   << endl;
         }
         cout<<endl;
 
