@@ -39,7 +39,7 @@ int twoStacks(int maxSum, vector<int> a, vector<int> b) {
     int trackB = 0;
     int count = 0;
     
-    //ignore 2nd stack and iterate through 1st
+    //ignore 2nd stack and iterate through 1st until we reach or exceed the value
     for(int x : a ){
         if(subTotal + x <= maxSum){
             subTotal += x;
@@ -48,18 +48,22 @@ int twoStacks(int maxSum, vector<int> a, vector<int> b) {
             break;
         }
     }
-    
+
+    //let this number of elements be the count for now
     count = trackA;
-    
+
+    //iterate through the 2nd stack
     for(int x : b){
+        //add an element to the sub total
         trackB ++;
         subTotal += x;
+        //if this exceeds our target, remove elements borrowed from 1st stack till we go below the target, or until we run out of items 
         while(subTotal > maxSum && trackA > 0){
             subTotal -= a[trackA - 1];
             trackA--;
         }
 
-        
+        //if our sub total is still below the target and the number of elements have increased, let this new number be the count
         if(subTotal <= maxSum){
             if(trackA + trackB > count){
                 count = trackA + trackB;
