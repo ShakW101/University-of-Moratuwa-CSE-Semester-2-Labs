@@ -5,6 +5,7 @@
 #include <algorithm>
 using namespace std;
 
+//basic min heapify
 void minHeapify(vector<int> &arr, int n, int root){
     int left = 2*root + 1;
     int right = 2 * root + 2;
@@ -37,15 +38,17 @@ void deleteFromHeap(vector<int> &arr, int value){
         }
     }
 
-
     //replace the value with the last element
     arr[index] = arr[n - 1];
     //remove the last element
     arr.pop_back();
 
     //restore heap property
-    minHeapify(arr, arr.size(), 0); 
+    n = arr.size();
+    if (index < n)
+        minHeapify(arr, arr.size(), index);
 }
+
 
 
 int main() {
